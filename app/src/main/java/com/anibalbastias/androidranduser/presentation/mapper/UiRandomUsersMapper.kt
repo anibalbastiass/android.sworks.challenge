@@ -19,7 +19,8 @@ class UiRandomUsersMapper {
         cell = cell,
         thumbImageUrl = thumbImageUrl,
         largeImageUrl = largeImageUrl,
-        nationality = nationality
+        nationality = nationality,
+        pageSize = pageSize
     )
 
     fun UiUserResult.fromUiToDomain() = DomainUserResult(
@@ -36,6 +37,7 @@ class UiRandomUsersMapper {
         cell = cell,
         thumbImageUrl = thumbImageUrl,
         largeImageUrl = largeImageUrl,
-        nationality = nationality
+        nationality = nationality,
+        pageSize = pageSize
     )
 }

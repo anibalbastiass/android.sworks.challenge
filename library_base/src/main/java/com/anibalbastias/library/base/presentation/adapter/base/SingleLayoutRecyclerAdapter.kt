@@ -1,8 +1,8 @@
-package com.anibalbastias.library.uikit.adapter.base
+package com.anibalbastias.library.base.presentation.adapter.base
 
 import android.widget.Filter
-import com.anibalbastias.library.uikit.adapter.filter.CustomFilter
-import com.anibalbastias.library.uikit.adapter.filter.FilterWordListener
+import com.anibalbastias.library.base.presentation.adapter.filter.CustomFilter
+import com.anibalbastias.library.base.presentation.adapter.filter.FilterWordListener
 
 /**
  * Base recycler view adapter with

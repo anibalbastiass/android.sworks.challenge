@@ -39,7 +39,7 @@ class RandUserApiTest : KoinTest {
     @Test
     fun `should get news from api`() {
         val result = runBlocking {
-            api.getRandomUsers(params = query).await()
+            api.getUsersByPage(params = query).await()
         }
 
         Assert.assertNotNull(result); result ?: return

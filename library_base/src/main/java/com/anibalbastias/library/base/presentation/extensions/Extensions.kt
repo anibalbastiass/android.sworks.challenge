@@ -3,6 +3,7 @@ package com.anibalbastias.library.base.presentation.extensions
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Build
@@ -14,6 +15,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.anibalbastias.library.base.data.coroutines.Result
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -77,7 +81,7 @@ fun <T> LiveResult<T>.postEmpty() = postValue(
 )
 
 
-//  Coroutines
+// Coroutines
 suspend fun <T> Call<T>.await() = suspendCoroutine<T?> { continuation ->
     enqueue(object : Callback<T?> {
         override fun onResponse(call: Call<T?>, response: Response<T?>) {

@@ -1,7 +1,11 @@
 package com.anibalbastias.androidranduser.data.datasource.remote
 
 object Constants {
-    const val API = "api"
+    // Request
+    const val PAGE_SIZE = 50
+    const val URL_FORMAT = "api?page=%d&results=%d"
+
+    // Response
     const val RESULTS = "results"
     const val INFO = "info"
     const val SEED = "seed"

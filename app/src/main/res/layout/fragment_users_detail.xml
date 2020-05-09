@@ -37,7 +37,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
-                    android:id="@+id/resultItemImage"
+                    android:id="@+id/ivMainUser"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/toolbar_image"
@@ -69,7 +69,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <include
-                android:id="@+id/resultItemContainer"
+                android:id="@+id/containerResult"
                 layout="@layout/fragment_users_detail_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

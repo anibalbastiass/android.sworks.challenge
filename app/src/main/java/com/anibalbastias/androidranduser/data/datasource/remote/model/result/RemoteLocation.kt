@@ -17,7 +17,7 @@ data class RemoteLocation(
     @field:SerializedName(CITY) val city: String?,
     @field:SerializedName(STREET) val street: RemoteStreet?,
     @field:SerializedName(TIMEZONE) val remoteTimezone: RemoteTimezone?,
-    @field:SerializedName(POSTCODE) val postcode: Int?,
+    @field:SerializedName(POSTCODE) val postcode: String?,
     @field:SerializedName(COORDINATES) val coordinates: RemoteCoordinates?,
     @field:SerializedName(STATE) val state: String?
 )

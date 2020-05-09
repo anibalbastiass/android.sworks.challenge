@@ -14,12 +14,12 @@
 
         <variable
             name="clickHandler"
-            type="com.anibalbastias.library.uikit.adapter.base.BaseBindClickHandler" />
+            type="com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler" />
 
     </data>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/searchRecentItemContainer"
+        android:id="@+id/cvUserContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
@@ -40,7 +40,7 @@
             android:minHeight="@dimen/dp_150">
 
             <ImageView
-                android:id="@+id/cutePawsItemImageView"
+                android:id="@+id/ivUserImage"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="@dimen/dp_0"
                 android:contentDescription="@string/itemNewsDescription"
@@ -55,7 +55,7 @@
                 tools:src="@drawable/ic_placeholder" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivGradient"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_100"
                 android:rotation="180"
@@ -67,7 +67,7 @@
                 tools:ignore="UnusedAttribute" />
 
             <TextView
-                android:id="@+id/cutePawsItemTitle"
+                android:id="@+id/tvUserFullName"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
@@ -78,7 +78,7 @@
                 android:padding="@dimen/dp_10"
                 android:text="@{item.fullName}"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp_13"
                 bind:layout_constraintBottom_toBottomOf="parent"
                 bind:layout_constraintEnd_toEndOf="parent"
                 bind:layout_constraintStart_toStartOf="parent"

@@ -6,8 +6,10 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Handler
 import android.provider.MediaStore
 import android.util.TypedValue
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -17,6 +19,24 @@ import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import java.io.ByteArrayOutputStream
 
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    this.visibility = View.GONE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
+}
+
+fun View.disableAndPostDelayEnabled() {
+    this.isEnabled = false
+    Handler().postDelayed({
+        this.isEnabled = true
+    }, 1500)
+}
 
 fun dpToPx(dp: Float): Int =
     (TypedValue.applyDimension(

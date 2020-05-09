@@ -9,7 +9,7 @@ class RandomUsersMapper {
         const val EMPTY_DEFAULT = ""
     }
 
-    fun RemoteUserResult.fromRemoteToDomain() = DomainUserResult(
+    fun RemoteUserResult.fromRemoteToDomain(pageSize: Int) = DomainUserResult(
         userId = id?.run { "$name-$value" } ?: EMPTY_DEFAULT,
         fullName = name?.run { "$first $last" } ?: EMPTY_DEFAULT,
         gender = gender ?: EMPTY_DEFAULT,
@@ -23,6 +23,7 @@ class RandomUsersMapper {
         cell = cell ?: EMPTY_DEFAULT,
         thumbImageUrl = picture?.medium ?: EMPTY_DEFAULT,
         largeImageUrl = picture?.large ?: EMPTY_DEFAULT,
-        nationality = nat ?: EMPTY_DEFAULT
+        nationality = nat ?: EMPTY_DEFAULT,
+        pageSize = pageSize
     )
 }

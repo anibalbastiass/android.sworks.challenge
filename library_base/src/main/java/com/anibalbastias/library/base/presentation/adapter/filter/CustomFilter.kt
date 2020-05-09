@@ -1,7 +1,7 @@
-package com.anibalbastias.library.uikit.adapter.filter
+package com.anibalbastias.library.base.presentation.adapter.filter
 
 import android.widget.Filter
-import com.anibalbastias.library.uikit.adapter.base.SingleLayoutBindRecyclerAdapter
+import com.anibalbastias.library.base.presentation.adapter.base.SingleLayoutBindRecyclerAdapter
 import java.util.*
 
 

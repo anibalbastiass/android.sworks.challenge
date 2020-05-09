@@ -1,15 +1,17 @@
-package com.anibalbastias.library.uikit.adapter.customBase
+package com.anibalbastias.library.base.presentation.adapter.customBase
 
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     protected var isLoadingAdded = false
     var hasHeader = true
     abstract var items: MutableList<T?>
+    abstract var clickHandler: BaseBindClickHandler<T>?
 
     companion object {
         const val HEADER_TYPE = 0

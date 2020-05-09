@@ -1,0 +1,36 @@
+allprojects {
+    repositories {
+        maven { url "https://maven.google.com" }
+        jcenter()
+        google()
+    }
+}
+
+ext {
+    // Isw App
+    appRanduserChallengeVersionCode = 1
+    appRanduserChallengeVersionName = '1.0.0'
+
+    androidBuildToolsVersion = '"29.0.2"'
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 29
+    androidCompileSdkVersion = 29
+
+    globalRanduserChallengeDependencies = [
+            RANDUSER_API_BASE_ENDPOINT: "https://randomuser.me/"
+    ]
+
+    randuserChallengeDependencies = [
+            multidex                : 'androidx.multidex:multidex:2.0.0',
+            okHttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:3.6.0"
+    ]
+
+    // Architecture Components dependencies
+    archComponentsDep = [
+            activityKtx  : "androidx.activity:activity-ktx:1.1.0-rc02",
+            fragmentKtx  : "androidx.navigation:navigation-fragment-ktx:2.2.0-rc02",
+            navigationKtx: "androidx.navigation:navigation-ui-ktx:2.2.0-rc02",
+            coreKtx      : 'androidx.core:core-ktx:1.2.0-rc01',
+            saveStateKtx : 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc02'
+    ]
+}

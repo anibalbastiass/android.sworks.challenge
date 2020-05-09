@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_challenge_nav_graph"
+    app:startDestination="@id/usersFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.anibalbastias.androidranduser.ui.list.UsersFragment"
+        android:label="UsersFragment"
+        tools:layout="@layout/fragment_users">
+
+        <action
+            android:id="@+id/action_usersFragment_to_usersDetailFragment"
+            app:destination="@id/usersDetailFragment"
+            app:enterAnim="@anim/fade_in_fragment"
+            app:exitAnim="@anim/fade_out_fragment"
+            app:popEnterAnim="@anim/fade_in_fragment"
+            app:popExitAnim="@anim/fade_out_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/usersDetailFragment"
+        android:name="com.anibalbastias.androidranduser.ui.details.UsersDetailFragment"
+        android:label="UsersDetailFragment"
+        tools:layout="@layout/fragment_users_detail">
+
+        <argument
+            android:name="itemUsers"
+            app:argType="com.anibalbastias.androidranduser.presentation.model.UiUserResult" />
+
+    </fragment>
+
+</navigation>

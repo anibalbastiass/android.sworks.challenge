@@ -18,9 +18,9 @@ open class RandomUsersViewModel(
 
     val usersLiveResult = LiveResult<List<DomainUserResult>>()
 
-    fun getUsers(page: String) {
+    fun getUsers(page: Int) {
         val params = DomainUserRequest(
-            page = page,
+            page = "$page",
             results = PAGE_SIZE,
             nat = NAT
         )

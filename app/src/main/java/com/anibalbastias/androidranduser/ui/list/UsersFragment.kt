@@ -38,10 +38,6 @@ class UsersFragment : Fragment(),
     BaseBindClickHandler<UiUserResult>,
     FilterWordListener<UiUserResult> {
 
-    companion object {
-        const val TOKEN_TEST = "Njedq4WpjWz4KKk"
-    }
-
     private val connectionManager: ConnectivityManager by inject()
     private val randomUsersViewModel: RandomUsersViewModel by viewModel()
     private val uiRandomUsersMapper: UiRandomUsersMapper by inject()
@@ -51,6 +47,7 @@ class UsersFragment : Fragment(),
     private var isLoading = ObservableBoolean(false)
     private var isError = ObservableBoolean(false)
     private var itemPosition: ObservableInt = ObservableInt(0)
+    private var page = ObservableInt(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +80,7 @@ class UsersFragment : Fragment(),
         }
 
         binding.srlNews?.initSwipe {
-            randomUsersViewModel.getUsers(TOKEN_TEST)
+            randomUsersViewModel.getUsers(page.get())
         }
     }
 
@@ -121,7 +118,7 @@ class UsersFragment : Fragment(),
         randomUsersViewModel.run {
             (usersLiveResult.value as? Result.OnSuccess<List<DomainUserResult>>)?.let { result ->
                 newsObserver(result)
-            } ?: getUsers(TOKEN_TEST)
+            } ?: getUsers(page.get())
         }
     }
 
@@ -139,7 +136,8 @@ class UsersFragment : Fragment(),
                 binding.rvNews.paginationForRecyclerScroll(itemPosition)
 
                 with(uiRandomUsersMapper) {
-                    binding.users = UiWrapperUserResult(items = result.value.map { it.fromDomainToUi() })
+                    binding.users =
+                        UiWrapperUserResult(items = result.value.map { it.fromDomainToUi() })
                 }
             }
             is Result.OnError -> {

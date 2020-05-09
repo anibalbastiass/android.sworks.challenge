@@ -9,4 +9,5 @@
     <string name="share_email">Share an email</string>
     <string name="error_permissions">You must grant permissions for share an email</string>
     <string name="search">Search</string>
+    <string name="years">Years</string>
 </resources>

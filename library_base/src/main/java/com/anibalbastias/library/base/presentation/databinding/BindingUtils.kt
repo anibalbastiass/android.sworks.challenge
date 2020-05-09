@@ -20,6 +20,13 @@ fun ImageView.setImageUrl(imageUrl: String?) {
     }
 }
 
+@BindingAdapter("setImageResource")
+fun ImageView.setImageViewResource(resource: Int?) {
+    resource?.let {
+        setImageResource(it)
+    }
+}
+
 @BindingAdapter(
     value = ["loadAdapterData", "loadAdapterLayout", "loadAdapterListener", "filter"],
     requireAll = false

@@ -24,6 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -124,3 +125,6 @@ fun Activity.isWriteStoragePermissionGranted(requestCode: Int): Boolean {
         true
     }
 }
+
+fun getFlagUrlByBase(base: String): String =
+    "https://www.countryflags.io/${base.substring(0, 2).toLowerCase(Locale.getDefault())}/flat/64.png"

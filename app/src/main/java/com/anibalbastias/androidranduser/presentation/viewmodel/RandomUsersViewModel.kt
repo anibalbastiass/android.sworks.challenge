@@ -11,18 +11,11 @@ open class RandomUsersViewModel(
     private val getRandomUsersUseCase: GetRandomUsersUseCase
 ) : BaseViewModel<SearchState>(initState = SearchState()) {
 
-    companion object {
-        const val PAGE_SIZE = "50"
-        const val NAT = "US"
-    }
-
     val usersLiveResult = LiveResult<List<DomainUserResult>>()
 
     fun getUsers(page: Int) {
         val params = DomainUserRequest(
-            page = "$page",
-            results = PAGE_SIZE,
-            nat = NAT
+            page = page
         )
         getRandomUsersUseCase.execute(liveData = usersLiveResult, params = params)
     }

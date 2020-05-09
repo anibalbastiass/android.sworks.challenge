@@ -16,18 +16,6 @@
             name="isError"
             type="androidx.databinding.ObservableBoolean" />
 
-        <variable
-            name="users"
-            type="com.anibalbastias.androidranduser.presentation.model.UiWrapperUserResult" />
-
-        <variable
-            name="callback"
-            type="com.anibalbastias.library.uikit.adapter.base.BaseBindClickHandler&lt;com.anibalbastias.androidranduser.presentation.model.UiUserResult>" />
-
-        <variable
-            name="filter"
-            type="com.anibalbastias.library.uikit.adapter.filter.FilterWordListener&lt;com.anibalbastias.androidranduser.presentation.model.UiUserResult>" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +24,7 @@
         android:background="@color/backgroundColor">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tbNews"
+            android:id="@+id/tbUsers"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
@@ -50,6 +38,7 @@
             <ImageView
                 android:layout_width="@dimen/dp_45"
                 android:layout_height="@dimen/dp_45"
+                android:padding="@dimen/dp_8"
                 android:gravity="start"
                 android:src="@drawable/ic_placeholder"
                 android:tint="@color/primaryColor" />
@@ -57,7 +46,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.anibalbastias.library.uikit.view.DotLoadingIndicatorView
-            android:id="@+id/dliNews"
+            android:id="@+id/dliUsers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_8"
@@ -69,33 +58,29 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbNews" />
+            app:layout_constraintTop_toBottomOf="@+id/tbUsers" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srlNews"
+            android:id="@+id/srlUsers"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
             android:visibility="@{isLoading == false ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbNews">
+            app:layout_constraintTop_toBottomOf="@+id/tbUsers">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvNews"
+                android:id="@+id/rvUsers"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_0"
                 android:padding="@dimen/dp_4"
-                bind:filter="@{filter}"
-                bind:loadAdapterData="@{users.items}"
-                bind:loadAdapterLayout="@{users.layoutId}"
-                bind:loadAdapterListener="@{callback}"
                 tools:listitem="@layout/view_cell_user_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <include
-            android:id="@+id/ecNews"
+            android:id="@+id/ecUsers"
             layout="@layout/view_cell_empty"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
@@ -103,7 +88,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbNews"
+            app:layout_constraintTop_toBottomOf="@+id/tbUsers"
             tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

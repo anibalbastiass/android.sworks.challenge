@@ -1,4 +1,4 @@
-package com.anibalbastias.library.uikit.adapter.base
+package com.anibalbastias.library.base.presentation.adapter.base
 
 import android.view.View
 

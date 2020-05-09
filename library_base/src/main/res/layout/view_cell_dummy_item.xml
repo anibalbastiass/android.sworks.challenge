@@ -5,11 +5,11 @@
 
         <variable
             name="item"
-            type="com.anibalbastias.library.uikit.adapter.base.model.UiBaseItem" />
+            type="com.anibalbastias.library.base.presentation.adapter.base.model.UiBaseItem" />
 
         <variable
             name="clickHandler"
-            type="com.anibalbastias.library.uikit.adapter.base.model.UiBaseItem" />
+            type="com.anibalbastias.library.base.presentation.adapter.base.model.UiBaseItem" />
 
     </data>
 

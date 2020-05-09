@@ -1,4 +1,4 @@
-package com.anibalbastias.library.uikit.adapter.customBase.holder
+package com.anibalbastias.library.base.presentation.adapter.customBase.holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

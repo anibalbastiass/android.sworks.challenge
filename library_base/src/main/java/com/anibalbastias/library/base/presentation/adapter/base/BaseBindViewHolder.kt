@@ -1,8 +1,8 @@
-package com.anibalbastias.library.uikit.adapter.base
+package com.anibalbastias.library.base.presentation.adapter.base
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.anibalbastias.library.uikit.BR
+import com.anibalbastias.library.base.BR
 
 class BaseBindViewHolder<T>(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 

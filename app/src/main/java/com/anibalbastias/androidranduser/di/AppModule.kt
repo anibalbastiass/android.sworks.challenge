@@ -10,8 +10,11 @@ import com.anibalbastias.androidranduser.domain.mapper.RandomUsersMapper
 import com.anibalbastias.androidranduser.domain.repository.RemoteRepository
 import com.anibalbastias.androidranduser.domain.usecase.GetRandomUsersUseCase
 import com.anibalbastias.androidranduser.presentation.mapper.UiRandomUsersMapper
+import com.anibalbastias.androidranduser.presentation.model.UiUserResult
+import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
+import com.anibalbastias.androidranduser.ui.list.UsersAdapter
 import com.anibalbastias.library.base.data.interceptor.FakeInterceptor
 import com.squareup.picasso.Picasso
 import okhttp3.OkHttpClient
@@ -73,6 +76,7 @@ val appModule = module {
 
     // ViewModels
     viewModel<RandomUsersViewModel>()
+    viewModel<PaginationViewModel<UiUserResult>>()
 
     // Factories
     factoryBy<RemoteRepository, RemoteDataStore>()
@@ -86,4 +90,7 @@ val appModule = module {
 
     // Navigator
     factory<UsersNavigator>()
+
+    // Adapter
+    factory<UsersAdapter>()
 }

@@ -15,7 +15,8 @@ data class DomainUserResult(
     val thumbImageUrl: String,
     val largeImageUrl: String,
     val nationality: String,
-    val pageSize: Int
+    val pageSize: Int,
+    var isFavorite: Boolean
 ) {
 
     override fun hashCode(): Int = userId.toInt()

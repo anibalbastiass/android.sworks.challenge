@@ -23,12 +23,14 @@ data class UiUserResult(
     val thumbImageUrl: String,
     val largeImageUrl: String,
     val nationality: String,
-    val pageSize: Int
+    val pageSize: Int,
+    val isFavorite: Boolean
 ) : Parcelable {
 
     companion object {
         private const val DEFAULT_EMPTY = ""
         private const val DEFAULT_SIZE = 0
+        private const val DEFAULT_BOOLEAN = false
 
         fun create() = UiUserResult(
             userId = DEFAULT_EMPTY,
@@ -47,7 +49,8 @@ data class UiUserResult(
             thumbImageUrl = DEFAULT_EMPTY,
             largeImageUrl = DEFAULT_EMPTY,
             nationality = DEFAULT_EMPTY,
-            pageSize = DEFAULT_SIZE
+            pageSize = DEFAULT_SIZE,
+            isFavorite = DEFAULT_BOOLEAN
         )
     }
 }

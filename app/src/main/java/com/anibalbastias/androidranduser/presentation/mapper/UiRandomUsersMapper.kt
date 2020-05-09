@@ -29,25 +29,8 @@ class UiRandomUsersMapper {
         thumbImageUrl = thumbImageUrl,
         largeImageUrl = largeImageUrl,
         nationality = nationality,
-        pageSize = pageSize
-    )
-
-    fun UiUserResult.fromUiToDomain() = DomainUserResult(
-        userId = userId,
-        fullName = fullName,
-        gender = gender,
-        address = fullAddress,
-        city = city,
-        state = state,
-        country = country,
-        email = email,
-        age = age,
-        phone = phone,
-        cell = cell,
-        thumbImageUrl = thumbImageUrl,
-        largeImageUrl = largeImageUrl,
-        nationality = nationality,
-        pageSize = pageSize
+        pageSize = pageSize,
+        isFavorite = isFavorite
     )
 
     private fun String.getImageGender(): Int {

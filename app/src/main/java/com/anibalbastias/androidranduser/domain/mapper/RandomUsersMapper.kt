@@ -7,6 +7,7 @@ class RandomUsersMapper {
 
     companion object {
         const val EMPTY_DEFAULT = ""
+        const val BOOLEAN_DEFAULT = false
     }
 
     fun RemoteUserResult.fromRemoteToDomain(pageSize: Int) = DomainUserResult(
@@ -24,6 +25,7 @@ class RandomUsersMapper {
         thumbImageUrl = picture?.medium ?: EMPTY_DEFAULT,
         largeImageUrl = picture?.large ?: EMPTY_DEFAULT,
         nationality = nat ?: EMPTY_DEFAULT,
-        pageSize = pageSize
+        pageSize = pageSize,
+        isFavorite = BOOLEAN_DEFAULT
     )
 }

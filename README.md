@@ -43,8 +43,7 @@ Implement test for ViewModel throw captors, mocks for check stats for LiveData t
 With Github Actions feature (Top tab), this repository is processing throw CI.
 
 ## Screenshots
-
-![Splashscreen](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130085.png) 
+ 
 ![User List](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130104.png)
 ![User List with favorites](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130116.png)
 ![User List with suggestions](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130125.png)

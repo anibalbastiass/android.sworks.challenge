@@ -1,6 +1,3 @@
-# -android.sworks.challenge-
-Sweat Work Challenge technical test for Android Developer
-
 # Randuser App: Random User app for meet random user and contact them!
 > Challenge app for Android Engineer technical test, very useful and funny app for apply Android Architecture components.
 

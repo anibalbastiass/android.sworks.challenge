@@ -33,18 +33,25 @@ class UsersNavigator {
     }
 
     fun navigateToUsersDetails(
-        view: View,
+        view: View? = null,
         item: UiUserResult
     ) {
-        val extras = FragmentNavigatorExtras(
-            getImageViewFromChild(view) to SECOND_TRANSITION
-        )
-        ViewCompat.setTransitionName(getImageViewFromChild(view), SECOND_TRANSITION)
+        view?.let {
+            val extras = FragmentNavigatorExtras(
+                getImageViewFromChild(view) to SECOND_TRANSITION
+            )
+            ViewCompat.setTransitionName(getImageViewFromChild(view), SECOND_TRANSITION)
 
-        navController?.navigate(
-            UsersFragmentDirections.actionUsersFragmentToUsersDetailFragment(item).actionId,
-            bundleOf(Pair(KEY_ITEMS, item)), null, extras
-        )
+            navController?.navigate(
+                UsersFragmentDirections.actionUsersFragmentToUsersDetailFragment(item).actionId,
+                bundleOf(Pair(KEY_ITEMS, item)), null, extras
+            )
+        } ?: run {
+            navController?.navigate(
+                UsersFragmentDirections.actionUsersFragmentToUsersDetailFragment(item).actionId,
+                bundleOf(Pair(KEY_ITEMS, item)), null, null
+            )
+        }
     }
 
 }

@@ -18,7 +18,7 @@
 
         <variable
             name="favoriteClickHandler"
-            type="com.anibalbastias.androidranduser.ui.list.UserItemListener" />
+            type="com.anibalbastias.androidranduser.ui.list.interfaces.UserItemListener" />
 
     </data>
 
@@ -56,7 +56,7 @@
                 bind:layout_constraintTop_toTopOf="parent"
                 bind:setImageUrl="@{item.thumbImageUrl}"
                 tools:ignore="UnusedAttribute"
-                tools:src="@drawable/ic_placeholder" />
+                tools:src="@tools:sample/avatars" />
 
             <ImageView
                 android:id="@+id/ivGradient"
@@ -87,7 +87,7 @@
                 bind:layout_constraintEnd_toEndOf="parent"
                 bind:layout_constraintStart_toStartOf="parent"
                 tools:ignore="UnusedAttribute"
-                tools:text="Title" />
+                tools:text="@tools:sample/first_names" />
 
             <ImageView
                 android:id="@+id/ivFavorite"

@@ -21,8 +21,8 @@ import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersVie
 import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
-import com.anibalbastias.androidranduser.ui.list.FavoriteUsersAdapter
-import com.anibalbastias.androidranduser.ui.list.UsersAdapter
+import com.anibalbastias.androidranduser.ui.list.adapter.FavoriteUsersAdapter
+import com.anibalbastias.androidranduser.ui.list.adapter.UsersAdapter
 import com.anibalbastias.library.base.data.interceptor.FakeInterceptor
 import com.squareup.picasso.Picasso
 import okhttp3.OkHttpClient

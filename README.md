@@ -15,6 +15,7 @@ Goal:
 
 - Frontend (Android):
   - From a personal project with a solid, scalable and clean architecture for Android apps (CLEAN + MVVM), begins complete features for this project.
+  - This project contains 2 flavors: Dummy and Prod. Dummy reads a JSON file for local interaction and Prod request to API.
 
 This project contains the following milestones
  

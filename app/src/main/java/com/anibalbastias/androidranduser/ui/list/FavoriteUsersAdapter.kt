@@ -10,10 +10,9 @@ import com.anibalbastias.androidranduser.presentation.model.UiUserResult
 import com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler
 import com.anibalbastias.library.base.presentation.adapter.base.BaseBindViewHolder
 import com.anibalbastias.library.base.presentation.adapter.customBase.BaseAdapter
-import com.anibalbastias.androidranduser.BR
 
 
-class UsersAdapter : BaseAdapter<UiUserResult>() {
+class FavoriteUsersAdapter : BaseAdapter<UiUserResult>() {
 
     override var items: MutableList<UiUserResult?> = arrayListOf()
     override var clickHandler: BaseBindClickHandler<UiUserResult>? = null
@@ -23,29 +22,22 @@ class UsersAdapter : BaseAdapter<UiUserResult>() {
     override fun createHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? = null
     override fun bindHeaderViewHolder(viewHolder: RecyclerView.ViewHolder) {}
     override fun bindFooterViewHolder(viewHolder: RecyclerView.ViewHolder) {}
+    override fun createLoadingViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? = null
     //endregion
 
     override fun createItemViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.view_cell_user_item, parent, false
+            R.layout.view_cell_favorite_user_item, parent, false
         )
         return BaseBindViewHolder<UiUserResult>(binding)
-    }
-
-    override fun createLoadingViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? {
-        val view2 = LayoutInflater.from(parent.context).inflate(
-            R.layout.view_cell_paging_loader, parent, false
-        )
-        return PagingLoaderHolder(view2)
     }
 
     override fun bindItemViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val holder = viewHolder as BaseBindViewHolder<UiUserResult>
         items[position]?.let {
             holder.bind(it, clickHandler)
-            holder.binding.setVariable(BR.favoriteClickHandler, favoriteClickHandler)
         }
     }
 

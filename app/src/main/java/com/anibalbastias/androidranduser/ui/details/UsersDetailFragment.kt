@@ -78,8 +78,6 @@ class UsersDetailFragment : Fragment() {
                         favoriteUsersViewModel.deleteFavoriteUser(args.itemUsers.fromUiToDomain())
                     }
                 } else {
-                    args.itemUsers.isFavorite.set(true)
-
                     with(uiRandomUsersMapper) {
                         favoriteUsersViewModel.saveFavoriteUser(args.itemUsers.fromUiToDomain())
                     }

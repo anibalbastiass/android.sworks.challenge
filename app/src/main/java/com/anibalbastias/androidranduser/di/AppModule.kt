@@ -21,6 +21,7 @@ import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersVie
 import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
+import com.anibalbastias.androidranduser.ui.list.FavoriteUsersAdapter
 import com.anibalbastias.androidranduser.ui.list.UsersAdapter
 import com.anibalbastias.library.base.data.interceptor.FakeInterceptor
 import com.squareup.picasso.Picasso
@@ -117,4 +118,5 @@ val appModule = module {
 
     // Adapter
     factory<UsersAdapter>()
+    factory<FavoriteUsersAdapter>()
 }

@@ -44,6 +44,11 @@ With Github Actions feature (Top tab), this repository is processing throw CI.
 
 ## Screenshots
 
-![Splashscreen](https://raw.githubusercontent.com/anibalbastiass/android.mdev.cutepawsappchallenge/develop/screenshots/device-2019-12-01-083211.png) ![Breed Detail](https://raw.githubusercontent.com/anibalbastiass/android.mdev.cutepawsappchallenge/develop/screenshots/device-2019-12-01-083414.png)
+![Splashscreen](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130085.png) 
+![User List](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130104.png)
+![User List with favorites](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130116.png)
+![User List with suggestions](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130125.png)
+![User Detail](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130133.png)
+![Add Contact](https://raw.githubusercontent.com/anibalbastiass/android.sworks.challenge/feature/testing-and-documentation/screenshots/Screenshot_1589130152.png)
 
 

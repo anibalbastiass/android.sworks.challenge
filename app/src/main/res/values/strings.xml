@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Randuser</string>
+    <string name="itemNewsDescription">Title</string>
+    <string name="error_connection">Error connection. Try again</string>
+    <string name="error_connection_internet">Error connection, check your internet status and try again please</string>
+    <string name="toolbar_image">News detail</string>
+    <string name="send_email">Send to Email</string>
+    <string name="subject_email">[ISW News] %s</string>
+    <string name="share_email">Share an email</string>
+    <string name="error_permissions">You must grant permissions for share an email</string>
+    <string name="search">Search</string>
+    <string name="years">Years</string>
+    <string name="deleted_favorite_user">User favorite deleted</string>
+    <string name="error_database">Error with transaction, try again</string>
+    <string name="saved_favorite_user">User saved successfuly</string>
+    <string name="favorites">Favorites</string>
+</resources>

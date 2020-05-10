@@ -1,0 +1,4 @@
+include ':app'
+rootProject.name='android.sworks.challenge'
+include ':library_base'
+include ':library_uikit'

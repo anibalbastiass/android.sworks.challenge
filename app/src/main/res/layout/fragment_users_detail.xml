@@ -88,13 +88,15 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="@dimen/dp_8"
                         android:layout_marginRight="@dimen/dp_8"
+                        android:animateLayoutChanges="true"
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:padding="@dimen/dp_8"
-                        android:src="@drawable/ic_favorite_no_selected"
+                        android:src="@{usersItem.favorite == true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_no_selected}"
                         android:tint="@color/white"
-                        tools:ignore="UnusedAttribute" />
+                        tools:ignore="UnusedAttribute"
+                        tools:src="@drawable/ic_favorite_no_selected" />
 
                 </androidx.appcompat.widget.Toolbar>
 

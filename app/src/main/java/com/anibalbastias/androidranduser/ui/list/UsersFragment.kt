@@ -16,16 +16,17 @@ import com.anibalbastias.androidranduser.presentation.mapper.UiRandomUsersMapper
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
 import com.anibalbastias.androidranduser.presentation.model.UiWrapperUserResult
 import com.anibalbastias.androidranduser.presentation.state.SearchState
-import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
+import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
 import com.anibalbastias.library.base.data.coroutines.Result
-import com.anibalbastias.library.base.presentation.extensions.isNetworkAvailable
-import com.anibalbastias.library.base.presentation.extensions.observe
 import com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler
 import com.anibalbastias.library.base.presentation.adapter.base.SingleLayoutBindRecyclerAdapter
 import com.anibalbastias.library.base.presentation.databinding.paginationForRecyclerScroll
 import com.anibalbastias.library.base.presentation.databinding.runLayoutAnimation
+import com.anibalbastias.library.base.presentation.extensions.isNetworkAvailable
+import com.anibalbastias.library.base.presentation.extensions.observe
+import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.library.uikit.extension.applyFontForToolbarTitle
 import com.anibalbastias.library.uikit.extension.initSwipe
 import com.anibalbastias.library.uikit.extension.setNoArrowUpToolbar
@@ -37,6 +38,7 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
 
     private val randomUsersViewModel: RandomUsersViewModel by viewModel()
     private val paginationViewModel: PaginationViewModel<UiUserResult> by viewModel()
+    private val favoriteUsersViewModel: FavoriteUsersViewModel by viewModel()
 
     private val connectionManager: ConnectivityManager by inject()
     private val uiRandomUsersMapper: UiRandomUsersMapper by inject()
@@ -74,6 +76,13 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
         with(randomUsersViewModel) {
             observe(state, ::stateObserver)
             observe(usersLiveResult, ::newsObserver)
+        }
+
+        with(favoriteUsersViewModel) {
+            observe(getFavoriteUserByIdLiveResult, ::getFavoriteUserByIdObserver)
+            observe(getFavoriteUsersLiveResult, ::getFavoriteUsersObserver)
+            observe(saveFavoriteUserLiveResult, ::saveFavoriteUserObserver)
+            observe(deleteFavoriteUserLiveResult, ::deleteFavoriteUserObserver)
         }
 
         binding.srlUsers.initSwipe {
@@ -175,6 +184,22 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
                 }
             }
         }
+    }
+
+    private fun deleteFavoriteUserObserver(result: Result<Boolean>?) {
+
+    }
+
+    private fun saveFavoriteUserObserver(result: Result<Boolean>?) {
+
+    }
+
+    private fun getFavoriteUsersObserver(result: Result<List<DomainUserResult>>?) {
+
+    }
+
+    private fun getFavoriteUserByIdObserver(result: Result<DomainUserResult>?) {
+
     }
 
     override fun onClickView(view: View, item: UiUserResult) {

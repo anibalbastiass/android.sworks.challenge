@@ -10,4 +10,7 @@
     <string name="error_permissions">You must grant permissions for share an email</string>
     <string name="search">Search</string>
     <string name="years">Years</string>
+    <string name="deleted_favorite_user">User favorite deleted</string>
+    <string name="error_database">Error with transaction, try again</string>
+    <string name="saved_favorite_user">User saved successfuly</string>
 </resources>

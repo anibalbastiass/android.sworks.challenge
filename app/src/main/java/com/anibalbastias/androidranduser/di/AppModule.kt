@@ -17,6 +17,7 @@ import com.anibalbastias.androidranduser.domain.repository.RemoteRepository
 import com.anibalbastias.androidranduser.domain.usecase.*
 import com.anibalbastias.androidranduser.presentation.mapper.UiRandomUsersMapper
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
+import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersViewModel
 import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
@@ -92,6 +93,7 @@ val appModule = module {
 
     // ViewModels
     viewModel<RandomUsersViewModel>()
+    viewModel<FavoriteUsersViewModel>()
     viewModel<PaginationViewModel<UiUserResult>>()
 
     // Factories

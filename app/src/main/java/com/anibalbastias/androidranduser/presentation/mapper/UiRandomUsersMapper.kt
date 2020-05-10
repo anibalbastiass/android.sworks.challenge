@@ -1,5 +1,6 @@
 package com.anibalbastias.androidranduser.presentation.mapper
 
+import androidx.databinding.ObservableBoolean
 import com.anibalbastias.androidranduser.R
 import com.anibalbastias.androidranduser.domain.model.DomainUserResult
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
@@ -30,7 +31,26 @@ class UiRandomUsersMapper {
         largeImageUrl = largeImageUrl,
         nationality = nationality,
         pageSize = pageSize,
-        isFavorite = isFavorite
+        isFavorite = ObservableBoolean(isFavorite)
+    )
+
+    fun UiUserResult.fromUiToDomain() = DomainUserResult(
+        userId = userId,
+        fullName = fullName,
+        gender = gender.capitalize(),
+        address = fullAddress,
+        city = city,
+        state = state,
+        country = country,
+        email = email,
+        age = age,
+        phone = phone,
+        cell = cell,
+        thumbImageUrl = thumbImageUrl,
+        largeImageUrl = largeImageUrl,
+        nationality = nationality,
+        pageSize = pageSize,
+        isFavorite = isFavorite.get()
     )
 
     private fun String.getImageGender(): Int {

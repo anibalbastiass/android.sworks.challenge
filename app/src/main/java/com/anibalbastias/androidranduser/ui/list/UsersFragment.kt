@@ -1,10 +1,15 @@
 package com.anibalbastias.androidranduser.ui.list
 
+import android.database.Cursor
+import android.database.MatrixCursor
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.provider.BaseColumns
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import androidx.cursoradapter.widget.CursorAdapter
+import androidx.cursoradapter.widget.SimpleCursorAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -19,9 +24,12 @@ import com.anibalbastias.androidranduser.presentation.state.SearchState
 import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
+import com.anibalbastias.androidranduser.ui.list.adapter.FavoriteUsersAdapter
+import com.anibalbastias.androidranduser.ui.list.adapter.UsersAdapter
+import com.anibalbastias.androidranduser.ui.list.interfaces.FavoriteUserItemListener
+import com.anibalbastias.androidranduser.ui.list.interfaces.UserItemListener
 import com.anibalbastias.library.base.data.coroutines.Result
 import com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler
-import com.anibalbastias.library.base.presentation.adapter.base.SingleLayoutBindRecyclerAdapter
 import com.anibalbastias.library.base.presentation.databinding.paginationForRecyclerScroll
 import com.anibalbastias.library.base.presentation.databinding.runLayoutAnimation
 import com.anibalbastias.library.base.presentation.extensions.isNetworkAvailable
@@ -30,9 +38,17 @@ import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.library.uikit.extension.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
-class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemListener,
+
+class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>,
+    UserItemListener,
     FavoriteUserItemListener {
+
+    companion object {
+        const val SUGGESTION_CURSOR = "users"
+    }
 
     private val randomUsersViewModel: RandomUsersViewModel by viewModel()
     private val paginationViewModel: PaginationViewModel<UiUserResult> by viewModel()
@@ -46,9 +62,23 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
 
     lateinit var binding: FragmentUsersBinding
 
+    private val suggestionsList = arrayListOf<String>()
+    private var mAdapter: SimpleCursorAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        val from = arrayOf(SUGGESTION_CURSOR)
+        val to = intArrayOf(android.R.id.text1)
+        mAdapter = SimpleCursorAdapter(
+            activity,
+            R.layout.view_cell_suggestion_item,
+            null,
+            from,
+            to,
+            CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
+        )
     }
 
     override fun onCreateView(
@@ -93,23 +123,56 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-
         inflater.inflate(R.menu.search_menu, menu)
-        val item: MenuItem = menu.findItem(R.id.action_search)
-        val searchView: SearchView = MenuItemCompat.getActionView(item) as SearchView
+    }
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val searchView =
+            MenuItemCompat.getActionView(menu.findItem(R.id.action_search)) as SearchView
+        searchView.suggestionsAdapter = mAdapter
+        searchView.setIconifiedByDefault(false)
+
+        searchView.setOnSuggestionListener(object :
+            SearchView.OnSuggestionListener {
+            override fun onSuggestionClick(position: Int): Boolean {
+                val cursor: Cursor = mAdapter?.getItem(position) as Cursor
+                val txt: String = cursor.getString(cursor.getColumnIndex(SUGGESTION_CURSOR))
+                searchView.setQuery(txt, true)
+
+                usersAdapter.items.map { uiItem ->
+                    if (uiItem?.fullName == txt) {
+                        usersNavigator.navigateToUsersDetails(item = uiItem)
+                    }
+                }
+                return true
+            }
+
+            override fun onSuggestionSelect(position: Int): Boolean {
+                return true
+            }
+        })
+        searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(s: String): Boolean {
                 return false
             }
 
-            override fun onQueryTextChange(query: String?): Boolean {
-                val adapter = (binding.rvUsers.adapter
-                        as? SingleLayoutBindRecyclerAdapter<UiUserResult>)
-                adapter?.getFilter()?.filter(query)
+            override fun onQueryTextChange(s: String): Boolean {
+                populateAdapter(s)
                 return false
             }
         })
+    }
+
+    private fun populateAdapter(query: String) {
+        val c = MatrixCursor(arrayOf(BaseColumns._ID, SUGGESTION_CURSOR))
+        for (i in suggestionsList.indices) {
+            if (suggestionsList[i].toLowerCase(Locale.getDefault())
+                    .startsWith(query.toLowerCase(Locale.getDefault()))
+            ) c.addRow(arrayOf<Any>(i, suggestionsList[i]))
+        }
+        mAdapter?.changeCursor(c)
     }
 
     private fun initToolbar() {
@@ -144,7 +207,11 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
                 binding.srlUsers.isRefreshing = false
 
                 val wrapperResult = with(uiRandomUsersMapper) {
+                    suggestionsList.clear()
+
                     UiWrapperUserResult(items = result.value.map {
+                        suggestionsList.add(it.fullName)
+
                         paginationViewModel.pageSize = it.pageSize
                         it.fromDomainToUi()
                     })
@@ -274,7 +341,6 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
     override fun onClickView(view: View, item: UiUserResult) {
         usersNavigator.navigateToUsersDetails(view, item)
     }
-
 
     override fun onUserFavoriteClick(view: View, item: UiUserResult) {
         usersNavigator.navigateToUsersDetails(view, item)

@@ -67,7 +67,7 @@
                             android:layout_width="@dimen/dp_45"
                             android:layout_height="@dimen/dp_45"
                             app:setImageUrl="@{usersItem.imageUrlCountry}"
-                            tools:src="@drawable/ic_placeholder" />
+                            tools:src="@tools:sample/backgrounds/scenic" />
 
                         <TextView
                             android:id="@+id/tvCountry"
@@ -131,7 +131,7 @@
                             android:layout_width="@dimen/dp_45"
                             android:layout_height="@dimen/dp_45"
                             app:setImageResource="@{usersItem.imageGender}"
-                            tools:src="@drawable/ic_placeholder" />
+                            tools:src="@tools:sample/backgrounds/scenic" />
 
                         <TextView
                             android:id="@+id/tvGender"
@@ -178,7 +178,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivLocation"
                     app:layout_constraintTop_toBottomOf="@+id/vSeparatorMain"
-                    tools:text="Address" />
+                    tools:text="@tools:sample/cities" />
 
                 <ImageView
                     android:id="@+id/ivEmail"

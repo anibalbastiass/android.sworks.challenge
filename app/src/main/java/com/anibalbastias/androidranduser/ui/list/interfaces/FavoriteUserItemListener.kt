@@ -1,4 +1,4 @@
-package com.anibalbastias.androidranduser.ui.list
+package com.anibalbastias.androidranduser.ui.list.interfaces
 
 import android.view.View
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult

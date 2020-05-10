@@ -3,7 +3,6 @@ package com.anibalbastias.androidranduser.ui.details
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.ContactsContract.*
 import android.provider.ContactsContract.CommonDataKinds.Phone
 import android.provider.ContactsContract.Intents.Insert
@@ -186,7 +185,7 @@ class UsersDetailFragment : Fragment() {
             WRITE_USER_CONTACTS_PERMISSION -> {
 
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    usersNavigator.shareNewsToEmail(activity!!, args.itemNews)
+
                 } else {
                     activity?.toast(getString(R.string.error_permissions))
                 }

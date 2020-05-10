@@ -17,9 +17,6 @@ import org.koin.test.inject
 
 class RandUserApiTest : KoinTest {
 
-    private val query = hashMapOf<String, String>()
-    private val queryError = hashMapOf<String, String>()
-
     val api by inject<RandUserApi>()
 
     @Before
@@ -39,7 +36,7 @@ class RandUserApiTest : KoinTest {
     @Test
     fun `should get news from api`() {
         val result = runBlocking {
-            api.getUsersByPage(params = query).await()
+            api.getUsersByPage(nextUrl = "api").await()
         }
 
         Assert.assertNotNull(result); result ?: return

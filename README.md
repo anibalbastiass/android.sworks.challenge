@@ -18,13 +18,15 @@ Goal:
 
 - Frontend (Android):
   - From a personal project with a solid, scalable and clean architecture for Android apps (CLEAN + MVVM), begins complete features for this project.
-  - Work with TDD (Test Drive Development) for build with Unit tests with Mockito (Unit tests), Roboelectric (Integration Tests).
 
 This project contains the following milestones
  
 - Build a scalable and stable architecture for Android App: MVVM + CLEAN Architecture
+- SOLID principles + pattern designs
+- Using Koin for Dependency Injection
 - Apply Android Architecture Components: Navigation, View Model, Live Data, Databinding, Room
 - Use Android X dependencies
+- Using modularization for decouple dependencies
 - Keep clean code and use minimal dependencies
 
 - Navigation:

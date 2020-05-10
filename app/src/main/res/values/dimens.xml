@@ -4,4 +4,6 @@
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_200">200dp</dimen>
     <dimen name="dp_300">300dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="sp_16">16sp</dimen>
 </resources>

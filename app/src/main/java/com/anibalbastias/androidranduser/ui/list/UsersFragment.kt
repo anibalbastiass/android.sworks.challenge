@@ -16,32 +16,33 @@ import com.anibalbastias.androidranduser.presentation.mapper.UiRandomUsersMapper
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
 import com.anibalbastias.androidranduser.presentation.model.UiWrapperUserResult
 import com.anibalbastias.androidranduser.presentation.state.SearchState
-import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
+import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
 import com.anibalbastias.library.base.data.coroutines.Result
-import com.anibalbastias.library.base.presentation.extensions.isNetworkAvailable
-import com.anibalbastias.library.base.presentation.extensions.observe
 import com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler
 import com.anibalbastias.library.base.presentation.adapter.base.SingleLayoutBindRecyclerAdapter
 import com.anibalbastias.library.base.presentation.databinding.paginationForRecyclerScroll
 import com.anibalbastias.library.base.presentation.databinding.runLayoutAnimation
-import com.anibalbastias.library.uikit.extension.applyFontForToolbarTitle
-import com.anibalbastias.library.uikit.extension.initSwipe
-import com.anibalbastias.library.uikit.extension.setNoArrowUpToolbar
-import com.anibalbastias.library.uikit.extension.toast
+import com.anibalbastias.library.base.presentation.extensions.isNetworkAvailable
+import com.anibalbastias.library.base.presentation.extensions.observe
+import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
+import com.anibalbastias.library.uikit.extension.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
+class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemListener,
+    FavoriteUserItemListener {
 
     private val randomUsersViewModel: RandomUsersViewModel by viewModel()
     private val paginationViewModel: PaginationViewModel<UiUserResult> by viewModel()
+    private val favoriteUsersViewModel: FavoriteUsersViewModel by viewModel()
 
     private val connectionManager: ConnectivityManager by inject()
     private val uiRandomUsersMapper: UiRandomUsersMapper by inject()
     private val usersNavigator: UsersNavigator by inject()
     private val usersAdapter: UsersAdapter by inject()
+    private val favoriteUsersAdapter: FavoriteUsersAdapter by inject()
 
     lateinit var binding: FragmentUsersBinding
 
@@ -74,6 +75,12 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
         with(randomUsersViewModel) {
             observe(state, ::stateObserver)
             observe(usersLiveResult, ::newsObserver)
+        }
+
+        with(favoriteUsersViewModel) {
+            observe(getFavoriteUsersLiveResult, ::getFavoriteUsersObserver)
+            observe(saveFavoriteUserLiveResult, ::saveFavoriteUserObserver)
+            observe(deleteFavoriteUserLiveResult, ::deleteFavoriteUserObserver)
         }
 
         binding.srlUsers.initSwipe {
@@ -145,10 +152,11 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
 
                 paginationViewModel.setPagination(
                     adapter = usersAdapter,
-                    items = wrapperResult.items as ArrayList<UiUserResult>,
+                    items = wrapperResult?.items as ArrayList<UiUserResult>,
                     bodyHasItems = { items ->
                         if (items?.isNotEmpty() == true) {
                             usersAdapter.clickHandler = this@UsersFragment
+                            usersAdapter.favoriteClickHandler = this@UsersFragment
                             usersAdapter.items = (items as? MutableList<UiUserResult?>)!!
                             setAdapterByData()
                         } else {
@@ -157,11 +165,14 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
                         }
                     }, bodyNoItems = { items ->
                         usersAdapter.clickHandler = this@UsersFragment
+                        usersAdapter.favoriteClickHandler = this@UsersFragment
                         usersAdapter.items = (items as? MutableList<UiUserResult?>)!!
                         setAdapterByData()
                         // Show Empty View
                         paginationViewModel.isEmpty.set(true)
                     })
+
+                favoriteUsersViewModel.getFavoriteUsers()
             }
             is Result.OnError -> {
                 binding.isLoading?.set(false)
@@ -177,8 +188,110 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult> {
         }
     }
 
+    private fun deleteFavoriteUserObserver(result: Result<DomainUserResult>?) {
+        when (result) {
+            is Result.OnSuccess -> {
+                usersAdapter.items.map { uiItem ->
+                    if (uiItem?.userId == result.value.userId) {
+                        uiItem.isFavorite.set(false)
+                    }
+                }
+                favoriteUsersViewModel.getFavoriteUsers()
+            }
+            is Result.OnError -> {
+                activity?.toast(getString(R.string.error_database))
+            }
+        }
+    }
+
+    private fun saveFavoriteUserObserver(result: Result<DomainUserResult>?) {
+        when (result) {
+            is Result.OnSuccess -> {
+                usersAdapter.items.map { uiItem ->
+                    if (uiItem?.userId == result.value.userId) {
+                        uiItem.isFavorite.set(true)
+                    }
+                }
+                favoriteUsersViewModel.getFavoriteUsers()
+            }
+            is Result.OnError -> {
+                activity?.toast(getString(R.string.error_database))
+            }
+        }
+    }
+
+    private fun getFavoriteUsersObserver(result: Result<List<DomainUserResult>>?) {
+        when (result) {
+            is Result.OnSuccess -> {
+                // First refresh vertical view
+                val users = usersAdapter.items
+
+                if (result.value.isEmpty()) {
+                    users.map { uiItem ->
+                        uiItem?.isFavorite?.set(false)
+                    }
+                } else {
+                    var favIds = ""
+                    result.value.map {
+                        favIds += "$it&"
+                    }
+
+                    users.map { uiItem ->
+                        if (favIds.contains(uiItem?.userId!!)) {
+                            uiItem.isFavorite.set(true)
+                        } else {
+                            uiItem.isFavorite.set(false)
+                        }
+                    }
+                }
+
+                // After refresh horizontal view
+                if (result.value.isEmpty()) {
+                    binding.cvFavoriteUserContainer.gone()
+                } else {
+                    binding.cvFavoriteUserContainer.visible()
+
+                    binding.rvFavoriteUsers.let { rv ->
+                        if (rv.adapter == null) {
+                            rv.setHasFixedSize(true)
+                            favoriteUsersAdapter.favoriteClickHandler = this@UsersFragment
+                            rv.adapter = favoriteUsersAdapter
+                        }
+
+                        val items =
+                            with(uiRandomUsersMapper) { result.value.map { it.fromDomainToUi() } }.toMutableList()
+                        favoriteUsersAdapter.items = items.toMutableList()
+                        favoriteUsersAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+            is Result.OnError -> {
+                activity?.toast(getString(R.string.error_database))
+            }
+        }
+    }
+
     override fun onClickView(view: View, item: UiUserResult) {
         usersNavigator.navigateToUsersDetails(view, item)
+    }
+
+
+    override fun onUserFavoriteClick(view: View, item: UiUserResult) {
+        usersNavigator.navigateToUsersDetails(view, item)
+    }
+
+    override fun onFavoriteClick(item: UiUserResult) {
+        if (item.isFavorite.get()) {
+            with(uiRandomUsersMapper) {
+                item.isFavorite.set(false)
+                favoriteUsersViewModel.deleteFavoriteUser(item.fromUiToDomain())
+            }
+        } else {
+            with(uiRandomUsersMapper) {
+                item.isFavorite.set(true)
+                favoriteUsersViewModel.saveFavoriteUser(item.fromUiToDomain())
+            }
+        }
     }
 
     private fun setAdapterByData() {

@@ -16,6 +16,10 @@
             name="clickHandler"
             type="com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler" />
 
+        <variable
+            name="favoriteClickHandler"
+            type="com.anibalbastias.androidranduser.ui.list.UserItemListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -84,6 +88,23 @@
                 bind:layout_constraintStart_toStartOf="parent"
                 tools:ignore="UnusedAttribute"
                 tools:text="Title" />
+
+            <ImageView
+                android:id="@+id/ivFavorite"
+                android:layout_width="@dimen/dp_45"
+                android:layout_height="@dimen/dp_45"
+                android:layout_gravity="end"
+                android:animateLayoutChanges="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/dp_4"
+                android:onClick="@{() -> favoriteClickHandler.onFavoriteClick(item)}"
+                android:src="@{item.favorite == true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_no_selected}"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UnusedAttribute"
+                tools:src="@drawable/ic_favorite_no_selected" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

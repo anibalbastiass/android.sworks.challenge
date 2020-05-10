@@ -107,16 +107,16 @@ fun <T, L : LiveData<T>> FragmentActivity.observe(liveData: L, body: (T?) -> Uni
 fun <T, L : LiveData<T>> Fragment.observe(liveData: L, body: (T?) -> Unit) =
     liveData.observe(viewLifecycleOwner, Observer(body))
 
-fun Activity.isWriteStoragePermissionGranted(requestCode: Int): Boolean {
+fun Activity.isWriteContactPermissionGranted(requestCode: Int): Boolean {
     return if (Build.VERSION.SDK_INT >= 23) {
-        if (checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS)
             == PackageManager.PERMISSION_GRANTED
         ) {
             true
         } else {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                arrayOf(Manifest.permission.WRITE_CONTACTS),
                 requestCode
             )
             false

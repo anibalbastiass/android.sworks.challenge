@@ -2,24 +2,33 @@ package com.anibalbastias.androidranduser.di
 
 import android.content.Context
 import android.net.ConnectivityManager
+import androidx.room.Room
 import com.anibalbastias.androidranduser.BuildConfig
 import com.anibalbastias.androidranduser.R
 import com.anibalbastias.androidranduser.data.datasource.remote.RemoteDataStore
 import com.anibalbastias.androidranduser.data.datasource.remote.api.RandUserApi
+import com.anibalbastias.androidranduser.domain.Constants.DATABASE_NAME
+import com.anibalbastias.androidranduser.domain.database.DatabaseDataStore
+import com.anibalbastias.androidranduser.domain.database.UsersDatabase
+import com.anibalbastias.androidranduser.domain.mapper.BdRandomUsersMapper
 import com.anibalbastias.androidranduser.domain.mapper.RandomUsersMapper
+import com.anibalbastias.androidranduser.domain.repository.DatabaseRepository
 import com.anibalbastias.androidranduser.domain.repository.RemoteRepository
-import com.anibalbastias.androidranduser.domain.usecase.GetRandomUsersUseCase
+import com.anibalbastias.androidranduser.domain.usecase.*
 import com.anibalbastias.androidranduser.presentation.mapper.UiRandomUsersMapper
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
+import com.anibalbastias.androidranduser.presentation.viewmodel.FavoriteUsersViewModel
 import com.anibalbastias.library.base.presentation.viewmodel.PaginationViewModel
 import com.anibalbastias.androidranduser.presentation.viewmodel.RandomUsersViewModel
 import com.anibalbastias.androidranduser.ui.UsersNavigator
+import com.anibalbastias.androidranduser.ui.list.FavoriteUsersAdapter
 import com.anibalbastias.androidranduser.ui.list.UsersAdapter
 import com.anibalbastias.library.base.data.interceptor.FakeInterceptor
 import com.squareup.picasso.Picasso
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.experimental.dsl.viewModel
 import org.koin.dsl.module
 import org.koin.experimental.builder.factory
@@ -74,23 +83,40 @@ val appModule = module {
         Picasso.get()
     }
 
+    // Database
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            UsersDatabase::class.java,
+            DATABASE_NAME
+        ).build()
+    }
+
     // ViewModels
     viewModel<RandomUsersViewModel>()
+    viewModel<FavoriteUsersViewModel>()
     viewModel<PaginationViewModel<UiUserResult>>()
 
     // Factories
     factoryBy<RemoteRepository, RemoteDataStore>()
+    factoryBy<DatabaseRepository, DatabaseDataStore>()
 
     // Use Cases
     factory<GetRandomUsersUseCase>()
+    factory<GetFavoriteUserByIdUseCase>()
+    factory<GetFavoriteUsersUseCase>()
+    factory<SaveFavoriteUserUseCase>()
+    factory<DeleteFavoriteUserUseCase>()
 
     // Mapper
     factory<RandomUsersMapper>()
     factory<UiRandomUsersMapper>()
+    factory<BdRandomUsersMapper>()
 
     // Navigator
     factory<UsersNavigator>()
 
     // Adapter
     factory<UsersAdapter>()
+    factory<FavoriteUsersAdapter>()
 }

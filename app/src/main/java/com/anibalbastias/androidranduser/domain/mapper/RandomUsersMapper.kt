@@ -8,10 +8,11 @@ class RandomUsersMapper {
     companion object {
         const val EMPTY_DEFAULT = ""
         const val BOOLEAN_DEFAULT = false
+        const val INT_DEFAULT = 0
     }
 
     fun RemoteUserResult.fromRemoteToDomain(pageSize: Int) = DomainUserResult(
-        userId = id?.run { "$name-$value" } ?: EMPTY_DEFAULT,
+        userId = login?.uuid ?: EMPTY_DEFAULT,
         fullName = name?.run { "$first $last" } ?: EMPTY_DEFAULT,
         gender = gender ?: EMPTY_DEFAULT,
         address = location?.run { "${street?.name} ${street?.number}" } ?: EMPTY_DEFAULT,
@@ -26,6 +27,7 @@ class RandomUsersMapper {
         largeImageUrl = picture?.large ?: EMPTY_DEFAULT,
         nationality = nat ?: EMPTY_DEFAULT,
         pageSize = pageSize,
-        isFavorite = BOOLEAN_DEFAULT
+        isFavorite = BOOLEAN_DEFAULT,
+        dateFavoriteAdded = INT_DEFAULT.toLong()
     )
 }

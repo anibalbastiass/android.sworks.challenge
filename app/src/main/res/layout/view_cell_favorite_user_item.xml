@@ -16,6 +16,10 @@
             name="clickHandler"
             type="com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler" />
 
+        <variable
+            name="favoriteClickHandler"
+            type="com.anibalbastias.androidranduser.ui.list.FavoriteUserItemListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -29,8 +33,8 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="@{(v) -> clickHandler.onClickView(v, item)}"
-        card_view:cardCornerRadius="@dimen/dp_20"
+        android:onClick="@{(v) -> favoriteClickHandler.onUserFavoriteClick(v, item)}"
+        card_view:cardCornerRadius="@dimen/dp_45"
         card_view:cardElevation="@dimen/dp_4"
         card_view:cardUseCompatPadding="false">
 

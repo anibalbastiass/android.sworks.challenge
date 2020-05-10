@@ -5,6 +5,7 @@ import com.anibalbastias.androidranduser.R
 import com.anibalbastias.androidranduser.domain.model.DomainUserResult
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
 import com.anibalbastias.library.base.presentation.extensions.getFlagUrlByBase
+import java.util.*
 
 class UiRandomUsersMapper {
 
@@ -31,13 +32,14 @@ class UiRandomUsersMapper {
         largeImageUrl = largeImageUrl,
         nationality = nationality,
         pageSize = pageSize,
-        isFavorite = ObservableBoolean(isFavorite)
+        isFavorite = ObservableBoolean(isFavorite),
+        dateFavoriteAdded = dateFavoriteAdded
     )
 
     fun UiUserResult.fromUiToDomain() = DomainUserResult(
         userId = userId,
         fullName = fullName,
-        gender = gender.capitalize(),
+        gender = gender.toLowerCase(Locale.getDefault()),
         address = fullAddress,
         city = city,
         state = state,
@@ -50,7 +52,8 @@ class UiRandomUsersMapper {
         largeImageUrl = largeImageUrl,
         nationality = nationality,
         pageSize = pageSize,
-        isFavorite = isFavorite.get()
+        isFavorite = isFavorite.get(),
+        dateFavoriteAdded = dateFavoriteAdded
     )
 
     private fun String.getImageGender(): Int {

@@ -21,8 +21,8 @@ open class FavoriteUsersViewModel(
 
     val getFavoriteUserByIdLiveResult = LiveResult<DomainUserResult>()
     val getFavoriteUsersLiveResult = LiveResult<List<DomainUserResult>>()
-    val saveFavoriteUserLiveResult = LiveResult<Boolean>()
-    val deleteFavoriteUserLiveResult = LiveResult<Boolean>()
+    val saveFavoriteUserLiveResult = LiveResult<DomainUserResult>()
+    val deleteFavoriteUserLiveResult = LiveResult<DomainUserResult>()
 
     fun getFavoriteUserById(userId: String) {
         getFavoriteUserByIdUseCase.execute(

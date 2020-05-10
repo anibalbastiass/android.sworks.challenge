@@ -2,7 +2,6 @@ package com.anibalbastias.androidranduser.presentation.model
 
 import android.os.Parcelable
 import androidx.annotation.Keep
-import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import kotlinx.android.parcel.Parcelize
 
@@ -26,7 +25,8 @@ data class UiUserResult(
     val largeImageUrl: String,
     val nationality: String,
     val pageSize: Int,
-    var isFavorite: ObservableBoolean = ObservableBoolean(false)
+    var isFavorite: ObservableBoolean,
+    val dateFavoriteAdded: Long
 ) : Parcelable {
 
     companion object {
@@ -51,7 +51,8 @@ data class UiUserResult(
             largeImageUrl = DEFAULT_EMPTY,
             nationality = DEFAULT_EMPTY,
             pageSize = DEFAULT_SIZE,
-            isFavorite = ObservableBoolean(false)
+            isFavorite = ObservableBoolean(false),
+            dateFavoriteAdded = DEFAULT_SIZE.toLong()
         )
     }
 }

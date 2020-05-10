@@ -3,6 +3,7 @@ package com.anibalbastias.androidranduser.domain.model.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.anibalbastias.androidranduser.domain.Constants.TABLE_USERS
+import java.util.*
 
 @Entity(tableName = TABLE_USERS)
 data class EntityUser(
@@ -22,5 +23,6 @@ data class EntityUser(
     val largeImageUrl: String,
     val nationality: String,
     val pageSize: Int,
-    val isFavorite: Boolean = true
+    val isFavorite: Boolean = true,
+    val dateFavoriteAdded: Long = Date().time
 )

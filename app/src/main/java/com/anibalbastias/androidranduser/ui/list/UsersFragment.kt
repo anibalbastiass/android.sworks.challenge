@@ -31,7 +31,8 @@ import com.anibalbastias.library.uikit.extension.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemListener {
+class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemListener,
+    FavoriteUserItemListener {
 
     private val randomUsersViewModel: RandomUsersViewModel by viewModel()
     private val paginationViewModel: PaginationViewModel<UiUserResult> by viewModel()
@@ -44,7 +45,6 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
     private val favoriteUsersAdapter: FavoriteUsersAdapter by inject()
 
     lateinit var binding: FragmentUsersBinding
-    private var wrapperResult: UiWrapperUserResult? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,7 +143,7 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
                 binding.isError?.set(false)
                 binding.srlUsers.isRefreshing = false
 
-                wrapperResult = with(uiRandomUsersMapper) {
+                val wrapperResult = with(uiRandomUsersMapper) {
                     UiWrapperUserResult(items = result.value.map {
                         paginationViewModel.pageSize = it.pageSize
                         it.fromDomainToUi()
@@ -188,44 +188,80 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
         }
     }
 
-    private fun deleteFavoriteUserObserver(result: Result<Boolean>?) {
+    private fun deleteFavoriteUserObserver(result: Result<DomainUserResult>?) {
         when (result) {
+            is Result.OnSuccess -> {
+                usersAdapter.items.map { uiItem ->
+                    if (uiItem?.userId == result.value.userId) {
+                        uiItem.isFavorite.set(false)
+                    }
+                }
+                favoriteUsersViewModel.getFavoriteUsers()
+            }
             is Result.OnError -> {
                 activity?.toast(getString(R.string.error_database))
             }
         }
-        favoriteUsersViewModel.getFavoriteUsers()
     }
 
-    private fun saveFavoriteUserObserver(result: Result<Boolean>?) {
+    private fun saveFavoriteUserObserver(result: Result<DomainUserResult>?) {
         when (result) {
+            is Result.OnSuccess -> {
+                usersAdapter.items.map { uiItem ->
+                    if (uiItem?.userId == result.value.userId) {
+                        uiItem.isFavorite.set(true)
+                    }
+                }
+                favoriteUsersViewModel.getFavoriteUsers()
+            }
             is Result.OnError -> {
                 activity?.toast(getString(R.string.error_database))
             }
         }
-        favoriteUsersViewModel.getFavoriteUsers()
     }
 
     private fun getFavoriteUsersObserver(result: Result<List<DomainUserResult>>?) {
         when (result) {
             is Result.OnSuccess -> {
-                wrapperResult?.items?.zip(result.value)?.map { (uiItem, favItem) ->
-                    if (favItem.fullName == uiItem.fullName) {
-                        uiItem.isFavorite.set(favItem.isFavorite)
+                // First refresh vertical view
+                val users = usersAdapter.items
+
+                if (result.value.isEmpty()) {
+                    users.map { uiItem ->
+                        uiItem?.isFavorite?.set(false)
+                    }
+                } else {
+                    var favIds = ""
+                    result.value.map {
+                        favIds += "$it&"
+                    }
+
+                    users.map { uiItem ->
+                        if (favIds.contains(uiItem?.userId!!)) {
+                            uiItem.isFavorite.set(true)
+                        } else {
+                            uiItem.isFavorite.set(false)
+                        }
                     }
                 }
 
-                if (wrapperResult?.items == null || wrapperResult?.items?.isEmpty() == true) {
+                // After refresh horizontal view
+                if (result.value.isEmpty()) {
                     binding.cvFavoriteUserContainer.gone()
                 } else {
                     binding.cvFavoriteUserContainer.visible()
 
                     binding.rvFavoriteUsers.let { rv ->
-                        rv.setHasFixedSize(true)
-                        favoriteUsersAdapter.favoriteClickHandler = this@UsersFragment
-                        favoriteUsersAdapter.items =
+                        if (rv.adapter == null) {
+                            rv.setHasFixedSize(true)
+                            favoriteUsersAdapter.favoriteClickHandler = this@UsersFragment
+                            rv.adapter = favoriteUsersAdapter
+                        }
+
+                        val items =
                             with(uiRandomUsersMapper) { result.value.map { it.fromDomainToUi() } }.toMutableList()
-                        rv.adapter = favoriteUsersAdapter
+                        favoriteUsersAdapter.items = items.toMutableList()
+                        favoriteUsersAdapter.notifyDataSetChanged()
                     }
                 }
             }
@@ -236,6 +272,11 @@ class UsersFragment : Fragment(), BaseBindClickHandler<UiUserResult>, UserItemLi
     }
 
     override fun onClickView(view: View, item: UiUserResult) {
+        usersNavigator.navigateToUsersDetails(view, item)
+    }
+
+
+    override fun onUserFavoriteClick(view: View, item: UiUserResult) {
         usersNavigator.navigateToUsersDetails(view, item)
     }
 

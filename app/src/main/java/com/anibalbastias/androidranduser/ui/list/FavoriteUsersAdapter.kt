@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.anibalbastias.androidranduser.BR
 import com.anibalbastias.androidranduser.R
 import com.anibalbastias.androidranduser.presentation.model.UiUserResult
 import com.anibalbastias.library.base.presentation.adapter.base.BaseBindClickHandler
@@ -16,7 +17,7 @@ class FavoriteUsersAdapter : BaseAdapter<UiUserResult>() {
 
     override var items: MutableList<UiUserResult?> = arrayListOf()
     override var clickHandler: BaseBindClickHandler<UiUserResult>? = null
-    var favoriteClickHandler: UserItemListener? = null
+    var favoriteClickHandler: FavoriteUserItemListener? = null
 
     //region Unused methods
     override fun createHeaderViewHolder(parent: ViewGroup): RecyclerView.ViewHolder? = null
@@ -38,6 +39,7 @@ class FavoriteUsersAdapter : BaseAdapter<UiUserResult>() {
         val holder = viewHolder as BaseBindViewHolder<UiUserResult>
         items[position]?.let {
             holder.bind(it, clickHandler)
+            holder.binding.setVariable(BR.favoriteClickHandler, favoriteClickHandler)
         }
     }
 

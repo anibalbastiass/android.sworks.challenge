@@ -6,12 +6,12 @@ import com.anibalbastias.library.base.data.coroutines.ResultUseCase
 import kotlinx.coroutines.Dispatchers
 
 open class SaveFavoriteUserUseCase(private val databaseRepository: DatabaseRepository) :
-    ResultUseCase<DomainUserResult, Boolean>(
+    ResultUseCase<DomainUserResult, DomainUserResult>(
         backgroundContext = Dispatchers.IO,
         foregroundContext = Dispatchers.Main
     ) {
-    override suspend fun executeOnBackground(params: DomainUserResult): Boolean? {
+    override suspend fun executeOnBackground(params: DomainUserResult): DomainUserResult? {
         databaseRepository.saveFavoriteUser(user = params)
-        return true
+        return params
     }
 }

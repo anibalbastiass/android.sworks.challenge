@@ -21,7 +21,8 @@ class BdRandomUsersMapper {
         largeImageUrl = largeImageUrl,
         nationality = nationality,
         pageSize = pageSize,
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+        dateFavoriteAdded = dateFavoriteAdded
     )
 
     fun DomainUserResult.fromDomainToDatabase() = EntityUser(
@@ -40,6 +41,7 @@ class BdRandomUsersMapper {
         largeImageUrl = largeImageUrl,
         nationality = nationality,
         pageSize = pageSize,
-        isFavorite = isFavorite
+        isFavorite = isFavorite,
+        dateFavoriteAdded = dateFavoriteAdded
     )
 }

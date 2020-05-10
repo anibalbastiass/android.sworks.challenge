@@ -86,7 +86,7 @@ class UsersDetailFragment : Fragment() {
         }
     }
 
-    private fun deleteFavoriteUserObserver(result: Result<Boolean>?) {
+    private fun deleteFavoriteUserObserver(result: Result<DomainUserResult>?) {
         when (result) {
             is Result.OnSuccess -> {
                 args.itemUsers.isFavorite.set(false)
@@ -98,7 +98,7 @@ class UsersDetailFragment : Fragment() {
         }
     }
 
-    private fun saveFavoriteUserObserver(result: Result<Boolean>?) {
+    private fun saveFavoriteUserObserver(result: Result<DomainUserResult>?) {
         when (result) {
             is Result.OnSuccess -> {
                 args.itemUsers.isFavorite.set(true)
@@ -113,7 +113,7 @@ class UsersDetailFragment : Fragment() {
     private fun getFavoriteUserByIdObserver(result: Result<DomainUserResult>?) {
         when (result) {
             is Result.OnSuccess -> {
-                args.itemUsers.isFavorite.set(result.value.isFavorite)
+                args.itemUsers.isFavorite.set(true)
             }
             is Result.OnError -> {
                 args.itemUsers.isFavorite.set(false)

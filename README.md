@@ -1,5 +1,6 @@
 # Randuser App: Random User app for meet random user and contact them!
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/39ad08956e4445e6b5295fcab85d6577)](https://app.codacy.com/manual/anibalbastiass/android.sworks.challenge?utm_source=github.com&utm_medium=referral&utm_content=anibalbastiass/android.sworks.challenge&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/anibalbastiass/android.sworks.challenge.svg?style=shield)](https://circleci.com/gh/anibalbastiass/android.sworks.challenge)
 [![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.72-blue.svg)](https://kotlinlang.org)
 [![AGP](https://img.shields.io/badge/AndroidStudio-3.6.3-blue?style=flat)](https://developer.android.com/studio/releases/gradle-plugin)

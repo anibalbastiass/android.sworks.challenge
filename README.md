@@ -1,4 +1,10 @@
 # Randuser App: Random User app for meet random user and contact them!
+
+[![CircleCI](https://circleci.com/gh/anibalbastiass/android.sworks.challenge.svg?style=shield)](https://circleci.com/gh/anibalbastiass/android.sworks.challenge)
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.72-blue.svg)](https://kotlinlang.org)
+[![AGP](https://img.shields.io/badge/AndroidStudio-3.6.3-blue?style=flat)](https://developer.android.com/studio/releases/gradle-plugin)
+[![Gradle](https://img.shields.io/badge/Gradle-5.6.4-blue?style=flat)](https://gradle.org)
+
 > Challenge app for Android Engineer technical test, very useful and funny app for apply Android Architecture components.
 
 This project is a technical test for apply Android Enginner job. 

@@ -1,4 +1,15 @@
 # Randuser App: Random User app for meet random user and contact them!
+
+[![CircleCI](https://circleci.com/gh/anibalbastiass/android.sworks.challenge.svg?style=shield)](https://circleci.com/gh/anibalbastiass/android.sworks.challenge)
+[![Kotlin Version](https://img.shields.io/badge/Kotlin-1.3.72-blue.svg)](https://kotlinlang.org)
+[![AGP](https://img.shields.io/badge/AndroidStudio-3.6.3-blue?style=flat)](https://developer.android.com/studio/releases/gradle-plugin)
+[![Gradle](https://img.shields.io/badge/Gradle-5.6.4-blue?style=flat)](https://gradle.org)
+
+[![codebeat badge](https://codebeat.co/badges/7f632064-0be5-450f-b29f-f0e1460582ab)](https://codebeat.co/projects/github-com-anibalbastiass-android-sworks-challenge-develop)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/39ad08956e4445e6b5295fcab85d6577)](https://app.codacy.com/manual/anibalbastiass/android.sworks.challenge?utm_source=github.com&utm_medium=referral&utm_content=anibalbastiass/android.sworks.challenge&utm_campaign=Badge_Grade_Dashboard)
+[![CodeFactor](https://www.codefactor.io/repository/github/anibalbastiass/android.sworks.challenge/badge/develop)](https://www.codefactor.io/repository/github/anibalbastiass/android.sworks.challenge/overview/develop)
+
+
 > Challenge app for Android Engineer technical test, very useful and funny app for apply Android Architecture components.
 
 This project is a technical test for apply Android Enginner job. 
